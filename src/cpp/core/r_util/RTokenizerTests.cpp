@@ -30,7 +30,7 @@ namespace {
 class Verifier
 {
 public:
-   Verifier(wchar_t defaultTokenType,
+   Verifier(RToken::TokenType defaultTokenType,
             const std::wstring& prefix,
             const std::wstring& suffix)
       : defaultTokenType_(defaultTokenType),
@@ -44,7 +44,7 @@ public:
       verify(defaultTokenType_, value) ;
    }
 
-   void verify(wchar_t tokenType, const std::wstring& value)
+   void verify(RToken::TokenType tokenType, const std::wstring& value)
    {
 
       RTokenizer rt(prefix_ + value + suffix_) ;
@@ -67,14 +67,14 @@ public:
       verify(defaultTokenType_, values);
    }
 
-   void verify(int tokenType, const std::deque<std::wstring>& values)
+   void verify(RToken::TokenType tokenType, const std::deque<std::wstring>& values)
    {
       BOOST_FOREACH(const std::wstring& value, values)
          verify(tokenType, value);
    }
 
 private:
-   const wchar_t defaultTokenType_ ;
+   const RToken::TokenType defaultTokenType_ ;
    const std::wstring prefix_ ;
    const std::wstring suffix_ ;
 
