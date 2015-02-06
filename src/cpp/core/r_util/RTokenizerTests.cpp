@@ -17,8 +17,9 @@
 
 #include <iostream>
 
-#include <boost/assert.hpp>
 #include <boost/foreach.hpp>
+
+#include <tests/TestThat.hpp>
 
 namespace rstudio {
 namespace core {
@@ -52,10 +53,9 @@ public:
       {
          if (t.offset() == prefix_.length())
          {
-            std::wcout << value << std::endl;
-            BOOST_ASSERT(tokenType == t.type());
-            BOOST_ASSERT(value.length() == t.length());
-            BOOST_ASSERT(value == t.content());
+            expect_true(tokenType == t.type());
+            expect_true(value.length() == t.length());
+            expect_true(value == t.content());
             return ;
          }
       }
@@ -84,7 +84,7 @@ private:
 void testVoid()
 {
    RTokenizer rt(L"") ;
-   BOOST_ASSERT(!rt.nextToken());
+   expect_true(!rt.nextToken());
 }
 
 void testSimple()
@@ -223,21 +223,22 @@ void testWhitespace()
 
 } // anonymous namespace
 
-
-void runTokenizerTests()
+context("Tokenizer")
 {
-   testVoid();
-   testComment();
-   testSimple();
-   testError();
-   testNumbers();
-   testOperators();
-   testUOperators();
-   testStrings();
-   testIdentifiers();
-   testWhitespace();
+   test_that("tokenizer functions appropriately")
+   {
+      testVoid();
+      testComment();
+      testSimple();
+      testError();
+      testNumbers();
+      testOperators();
+      testUOperators();
+      testStrings();
+      testIdentifiers();
+      testWhitespace();
+   }
 }
-
 
 } // namespace r_util
 } // namespace core 
